@@ -1,0 +1,3 @@
+#This can be found on their website and you can incorporate this with my other looping scripts.  
+
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
