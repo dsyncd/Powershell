@@ -1,0 +1,3 @@
+#connect to computer with pssession.
+
+enter-pssession -computername nameofthecomputer -credential corpdomain\administrator
