@@ -202,8 +202,9 @@ foreach ($computer in $computers) {
             Invoke-command -Computername $computer -ScriptBlock {choco upgrade 7zip -y} -AsJob
         }
         $dgOnline.Rows.Add($computer)
-        }
+        
         Invoke-command -Computername $computer -ScriptBlock {choco upgrade chocolatey -y} -AsJob 
+        }
       }
       else { 
          
