@@ -154,7 +154,7 @@ $btnUpdate.Add_Click({
 #filters on the OU selected
 $OU = "OU="
 #replace this with your organization's AD distinguished name.
-$base = ",DC=rhagents,DC=local"
+$base = ",DC=rhcorp,DC=local"
 #combines
 $sb = $OU+($cbOU.text)+$base
 #computers added to array
@@ -164,7 +164,17 @@ $computers = Get-ADComputer -Filter * -SearchBase $sb | Select-Object -expandpro
 #function for looping through computers and updating them based on what's selected
 foreach ($computer in $computers) {
     if (test-Connection -Cn $computer -quiet) {
-               
+        #test if choco isn't installed.  If not, it will install it.  If it's installed, it will try to upgrade to latest version.
+        #$testchoco = powershell choco -v
+        #$chocoinstall = Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        if((Invoke-command -Computername $computer -ScriptBlock {powershell.exe choco -v}) -eq $null){
+            Invoke-command -Computername $computer -ScriptBlock { Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) } -AsJob 
+            
+
+        }
+        else { 
+
+        #installs updates based on options selected       
         If ($cbFirefox.Checked -eq $true){
             Invoke-command -Computername $computer -ScriptBlock {choco upgrade firefox -y} -AsJob
         }
@@ -192,8 +202,8 @@ foreach ($computer in $computers) {
             Invoke-command -Computername $computer -ScriptBlock {choco upgrade 7zip -y} -AsJob
         }
         $dgOnline.Rows.Add($computer)
-
-        
+        }
+        Invoke-command -Computername $computer -ScriptBlock {choco upgrade chocolatey -y} -AsJob 
       }
       else { 
          
