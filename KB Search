@@ -92,7 +92,7 @@ foreach ($computer in $computers) {
     [string]$kb = $txtKB.Text
     
     if (test-Connection -Cn $computer -quiet) {
-       if (Invoke-command -Computername $computer -ScriptBlock {powershell.exe get-hotfix $kb}){ $dgInstalled.Rows.Add($computer) }
+       if (Invoke-command -Computername $computer -ScriptBlock {powershell.exe get-hotfix $kb} -AsJob){ $dgInstalled.Rows.Add($computer) }
             else { $dgNotInstalled.Rows.Add($computer) }
     }
     else { $dgNotInstalled.Rows.Add($computer + " Offline") }    
