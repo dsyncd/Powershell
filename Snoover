@@ -218,7 +218,7 @@ $btnGetComputers.Add_Click({
 #filters on the OU selected
 $OU = "OU="
 #replace this with your organization's AD distinguished name.
-$base = ",DC=rhagents,DC=local"
+$base = ",DC=blah,DC=local"
 #combines
 $sb = $OU+($cbOU.text)+$base
 #computers added to array
