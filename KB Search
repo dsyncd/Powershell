@@ -4,5 +4,5 @@ $kb = Read-Host -Prompt "Please enter a KB"
 $computers = Get-ADComputer -Filter * -SearchBase "OU=Domain Controllers, DC=Domain, DC=local" | select -ExpandProperty name
     
 foreach ($c in $computers){
-    Get-Hotfix -ComputerName $c -id $kb | Out-File -FilePath .\test.txt -Append
+    Get-Hotfix -ComputerName $c -id $kb | Out-File -FilePath .\kb.txt -Append
    }
