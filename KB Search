@@ -1,7 +1,4 @@
-<# This form was created using POSHGUI.com  a free online gui designer for PowerShell
-.NAME
-    KB Search by Chas Daugherty 
-#>
+#KB Search by Chas Daugherty 
 
 $kb = Read-Host -Prompt "Please enter a KB"
 $computers = Get-ADComputer -Filter * -SearchBase "OU=Domain Controllers, DC=Domain, DC=local" | select -ExpandProperty name
