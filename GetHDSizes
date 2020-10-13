@@ -1,6 +1,6 @@
 #KB Search by Chas Daugherty 
 
-#Replace OU and Domain with your domain and run script from DC.
+#Replace OU and Domain with your domain and run script from DC.  Pulls back disk size.
 
 
 $computers = Get-ADComputer -Filter * -SearchBase "OU=Domain Controllers, DC=Domain, DC=local" | select -ExpandProperty name
